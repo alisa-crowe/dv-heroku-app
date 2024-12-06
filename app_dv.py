@@ -7,10 +7,10 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS globally for all routes
 
-# Load the trained model
-model_path = os.path.join(os.path.dirname(__file__), 'domestic_violence_model_compressed.pkl')
+# Load the trained model and encoder
+model_path = os.path.join(os.path.dirname(__file__), 'domestic_violence_model_with_encoder.pkl')
 try:
-    model = joblib.load(model_path)
+    model, encoder = joblib.load(model_path)
 except FileNotFoundError:
     raise RuntimeError(f"Model file '{model_path}' not found. Ensure it exists in the correct location.")
 
@@ -24,12 +24,6 @@ race_map = {
     'UNKNOWN': 5,
     'PACIFIC ISLANDER': 6,
     'AMERICAN INDIAN': 7
-}
-
-city_map = {
-    'San Diego': 0,
-    'Los Angeles': 1,
-    # Add more cities as needed
 }
 
 day_of_week_map = {
@@ -57,11 +51,10 @@ def predict():
 
         # Map categorical values to numerical
         data['Overall Race'] = race_map.get(data['Overall Race'].upper(), -1)
-        data['City'] = city_map.get(data['City'], -1)
         data['Day of Week'] = day_of_week_map.get(data['Day of Week'].upper(), -1)
 
         # Validate input
-        if -1 in (data['Overall Race'], data['City'], data['Day of Week']):
+        if -1 in (data['Overall Race'], data['Day of Week']):
             return jsonify({'error': 'Invalid categorical input values'}), 400
 
         # Create a DataFrame for the input
@@ -74,6 +67,14 @@ def predict():
             'Day of Week': [data['Day of Week']],
             'Month': [data['Month']]
         })
+
+        # Transform the 'City' column using the encoder
+        city_encoded = encoder.transform(input_data[['City']])
+        city_encoded_df = pd.DataFrame(city_encoded, columns=encoder.get_feature_names_out(['City']))
+
+        # Drop the original 'City' column and concatenate the encoded version
+        input_data = input_data.drop(columns=['City'])
+        input_data = pd.concat([input_data, city_encoded_df], axis=1)
 
         # Predict the probability of domestic violence
         prob = model.predict_proba(input_data)[:, 1][0]
