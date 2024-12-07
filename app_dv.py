@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/predict": {"origins": "https://sites.google.com"}})  # Adjust the origins to your Google Sites URL
 
 # Load the trained model and preprocessing pipeline
 model_path = os.path.join(os.path.dirname(__file__), 'domestic_violence_model_pipeline.pkl')
