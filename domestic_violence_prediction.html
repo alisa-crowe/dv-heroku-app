@@ -7,7 +7,14 @@
     <h1>Enter Incident Details</h1>
     <form id="predictionForm">
         <label for="victimAge">Victim Age:</label>
-        <input type="number" id="victimAge" placeholder="Enter Victim Age" required><br>
+        <select id="victimAge" required>
+            <!-- Options for ages 18 to 100 -->
+            <script>
+                for (let i = 18; i <= 100; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
+        </select><br>
 
         <label for="overallRace">Overall Race:</label>
         <select id="overallRace" required>
@@ -22,24 +29,83 @@
         </select><br>
 
         <label for="city">City:</label>
-        <input type="text" id="city" placeholder="Enter City" required><br>
+        <select id="city" required>
+            <option value="AGUANGA">AGUANGA</option>
+            <option value="ALPINE">ALPINE</option>
+            <option value="BONSALL">BONSALL</option>
+            <option value="BORREGO SPRINGS">BORREGO SPRINGS</option>
+            <option value="BOULEVARD">BOULEVARD</option>
+            <option value="BONITA">BONITA</option>
+            <option value="CAMP PENDLETON">CAMP PENDLETON</option>
+            <option value="CAMPO">CAMPO</option>
+            <option value="CARDIFF BY THE SEA">CARDIFF BY THE SEA</option>
+            <option value="CARLSBAD">CARLSBAD</option>
+            <option value="CHULA VISTA">CHULA VISTA</option>
+            <option value="CORONADO">CORONADO</option>
+            <option value="DEL MAR">DEL MAR</option>
+            <option value="DESCANSO">DESCANSO</option>
+            <option value="DULZURA">DULZURA</option>
+            <option value="EL CAJON">EL CAJON</option>
+            <option value="ENCINITAS">ENCINITAS</option>
+            <option value="ESCONDIDO">ESCONDIDO</option>
+            <option value="FALLBROOK">FALLBROOK</option>
+            <option value="GUATAY">GUATAY</option>
+            <option value="IMPERIAL BEACH">IMPERIAL BEACH</option>
+            <option value="JACUMBA">JACUMBA</option>
+            <option value="JAMUL">JAMUL</option>
+            <option value="JULIAN">JULIAN</option>
+            <option value="LA JOLLA">LA JOLLA</option>
+            <option value="LA MESA">LA MESA</option>
+            <option value="LAKESIDE">LAKESIDE</option>
+            <option value="LEMON GROVE">LEMON GROVE</option>
+            <option value="LINCOLN ACRES">LINCOLN ACRES</option>
+            <option value="MOUNT LAGUNA">MOUNT LAGUNA</option>
+            <option value="NATIONAL CITY">NATIONAL CITY</option>
+            <option value="OCEANSIDE">OCEANSIDE</option>
+            <option value="OTAY">OTAY</option>
+            <option value="PALA">PALA</option>
+            <option value="PALOMAR MOUNTAIN">PALOMAR MOUNTAIN</option>
+            <option value="PAUMA VALLEY">PAUMA VALLEY</option>
+            <option value="PINE VALLEY">PINE VALLEY</option>
+            <option value="POTRERO">POTRERO</option>
+            <option value="POWAY">POWAY</option>
+            <option value="RAMONA">RAMONA</option>
+            <option value="RANCHITA">RANCHITA</option>
+            <option value="RANCHO SANTA FE">RANCHO SANTA FE</option>
+            <option value="SAN CLEMENTE">SAN CLEMENTE</option>
+            <option value="SAN DIEGO">SAN DIEGO</option>
+            <option value="SAN MARCOS">SAN MARCOS</option>
+            <option value="SAN YSIDRO">SAN YSIDRO</option>
+            <option value="SANTEE">SANTEE</option>
+            <option value="SANTA YSABEL">SANTA YSABEL</option>
+            <option value="SOLANA BEACH">SOLANA BEACH</option>
+            <option value="SOUTH BAY">SOUTH BAY</option>
+            <option value="SPRING VALLEY">SPRING VALLEY</option>
+            <option value="TECATE">TECATE</option>
+            <option value="VALLEY CENTER">VALLEY CENTER</option>
+            <option value="VISTA">VISTA</option>
+            <option value="WARNER SPRINGS">WARNER SPRINGS</option>
+        </select><br>
 
         <label for="hour">Hour:</label>
-        <input type="number" id="hour" placeholder="Enter Hour (0-23)" required><br>
-
-        <label for="dayOfWeek">Day of Week:</label>
-        <select id="dayOfWeek" required>
-            <option value="MONDAY">MONDAY</option>
-            <option value="TUESDAY">TUESDAY</option>
-            <option value="WEDNESDAY">WEDNESDAY</option>
-            <option value="THURSDAY">THURSDAY</option>
-            <option value="FRIDAY">FRIDAY</option>
-            <option value="SATURDAY">SATURDAY</option>
-            <option value="SUNDAY">SUNDAY</option>
+        <select id="hour" required>
+            <!-- Options for hours 0 to 23 -->
+            <script>
+                for (let i = 0; i < 24; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
         </select><br>
 
         <label for="month">Month:</label>
-        <input type="number" id="month" placeholder="Enter Month (1-12)" required><br>
+        <select id="month" required>
+            <!-- Options for months 1 to 12 -->
+            <script>
+                for (let i = 1; i <= 12; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
+        </select><br>
 
         <button type="button" onclick="makePrediction()">Predict</button>
     </form>
@@ -52,7 +118,7 @@
                 'Overall Race': document.getElementById('overallRace').value,
                 'City': document.getElementById('city').value,
                 'Hour': document.getElementById('hour').value,
-                'Day of Week': document.getElementById('dayOfWeek').value,
+                'Day of Week': document.getElementById('dayOfWeek').value,  // Ensure this is still included if needed
                 'Month': document.getElementById('month').value
             };
 
@@ -70,9 +136,9 @@
                 }
 
                 const result = await response.json();
+
                 if (result.prediction !== undefined) {
-                    document.getElementById('result').innerText =
-                        `Prediction: ${result.prediction ? 'Domestic Violence Incident' : 'No Domestic Violence Incident'} (Probability: ${result.probability})`;
+                    document.getElementById('result').innerText = `Prediction: ${result.prediction}`;
                 } else {
                     document.getElementById('result').innerText = 'No prediction returned.';
                 }
