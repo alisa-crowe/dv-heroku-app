@@ -76,6 +76,9 @@ def predict():
         input_data = input_data.drop(columns=['City'])
         input_data = pd.concat([input_data, city_encoded_df], axis=1)
 
+        # Convert DataFrame to NumPy array for prediction
+        input_data = input_data.to_numpy()
+
         # Predict the probability of domestic violence
         prob = model.predict_proba(input_data)[:, 1][0]
         threshold = 0.4
