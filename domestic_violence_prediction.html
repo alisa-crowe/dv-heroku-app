@@ -2,6 +2,48 @@
 <html>
 <head>
     <title>Domestic Violence Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        select {
+            margin-bottom: 15px;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>Enter Incident Details</h1>
@@ -13,7 +55,7 @@
                     document.write(`<option value="${i}">${i}</option>`);
                 }
             </script>
-        </select><br>
+        </select>
 
         <label for="overallRace">Overall Race:</label>
         <select id="overallRace" required>
@@ -25,7 +67,7 @@
             <option value="UNKNOWN">UNKNOWN</option>
             <option value="PACIFIC ISLANDER">PACIFIC ISLANDER</option>
             <option value="AMERICAN INDIAN">AMERICAN INDIAN</option>
-        </select><br>
+        </select>
 
         <label for="city">City:</label>
         <select id="city" required>
@@ -84,7 +126,7 @@
             <option value="VALLEY CENTER">VALLEY CENTER</option>
             <option value="VISTA">VISTA</option>
             <option value="WARNER SPRINGS">WARNER SPRINGS</option>
-        </select><br>
+        </select>
 
         <label for="hour">Hour:</label>
         <select id="hour" required>
@@ -93,7 +135,7 @@
                     document.write(`<option value="${i}">${i}</option>`);
                 }
             </script>
-        </select><br>
+        </select>
 
         <label for="dayOfWeek">Day of Week:</label>
         <select id="dayOfWeek" required>
@@ -104,7 +146,7 @@
             <option value="FRIDAY">FRIDAY</option>
             <option value="SATURDAY">SATURDAY</option>
             <option value="SUNDAY">SUNDAY</option>
-        </select><br>
+        </select>
 
         <label for="month">Month:</label>
         <select id="month" required>
@@ -113,7 +155,7 @@
                     document.write(`<option value="${i}">${i}</option>`);
                 }
             </script>
-        </select><br>
+        </select>
 
         <button type="button" onclick="makePrediction()">Predict</button>
     </form>
