@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://sites.google.com"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Load the trained model and preprocessing pipeline
 model_path = os.path.join(os.path.dirname(__file__), 'domestic_violence_model_pipeline.pkl')

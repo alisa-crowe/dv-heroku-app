@@ -10,13 +10,19 @@
         <input type="number" id="victimAge" placeholder="Enter Victim Age" required><br>
 
         <label for="overallRace">Overall Race:</label>
-        <input type="text" id="overallRace" placeholder="Enter Overall Race" required><br>
+        <select id="overallRace" required>
+            <option value="HISPANIC">HISPANIC</option>
+            <option value="WHITE">WHITE</option>
+            <option value="OTHER">OTHER</option>
+            <option value="BLACK">BLACK</option>
+            <option value="ASIAN">ASIAN</option>
+            <option value="UNKNOWN">UNKNOWN</option>
+            <option value="PACIFIC ISLANDER">PACIFIC ISLANDER</option>
+            <option value="AMERICAN INDIAN">AMERICAN INDIAN</option>
+        </select><br>
 
         <label for="city">City:</label>
         <input type="text" id="city" placeholder="Enter City" required><br>
-
-        <label for="zipCode">Zip Code:</label>
-        <input type="number" id="zipCode" placeholder="Enter Zip Code" required><br>
 
         <label for="hour">Hour:</label>
         <input type="number" id="hour" placeholder="Enter Hour (0-23)" required><br>
@@ -45,7 +51,6 @@
                 'Victim Age': document.getElementById('victimAge').value,
                 'Overall Race': document.getElementById('overallRace').value,
                 'City': document.getElementById('city').value,
-                'Zip Code': document.getElementById('zipCode').value,
                 'Hour': document.getElementById('hour').value,
                 'Day of Week': document.getElementById('dayOfWeek').value,
                 'Month': document.getElementById('month').value
