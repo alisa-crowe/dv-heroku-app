@@ -146,7 +146,8 @@
                 const result = await response.json();
 
                 if (result.prediction !== undefined) {
-                    document.getElementById('result').innerText = `Prediction: ${result.prediction} (Probability: ${result.probability})`;
+                    const predictionText = result.prediction === 1 ? "Domestic Violence" : "Not Domestic Violence";
+                    document.getElementById('result').innerText = `Prediction: ${predictionText} (Probability: ${result.probability})`;
                 } else {
                     document.getElementById('result').innerText = 'No prediction returned.';
                 }
