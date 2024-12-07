@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS globally for all routes
+CORS(app, resources={r"/*": {"origins": "https://sites.google.com"}})
 
 # Load the trained model and encoder
 model_path = os.path.join(os.path.dirname(__file__), 'domestic_violence_model_with_encoder.pkl')
