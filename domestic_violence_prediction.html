@@ -8,7 +8,6 @@
     <form id="predictionForm">
         <label for="victimAge">Victim Age:</label>
         <select id="victimAge" required>
-            <!-- Options for ages 18 to 100 -->
             <script>
                 for (let i = 18; i <= 100; i++) {
                     document.write(`<option value="${i}">${i}</option>`);
@@ -89,7 +88,6 @@
 
         <label for="hour">Hour:</label>
         <select id="hour" required>
-            <!-- Options for hours 0 to 23 -->
             <script>
                 for (let i = 0; i < 24; i++) {
                     document.write(`<option value="${i}">${i}</option>`);
@@ -97,9 +95,19 @@
             </script>
         </select><br>
 
+        <label for="dayOfWeek">Day of Week:</label>
+        <select id="dayOfWeek" required>
+            <option value="MONDAY">MONDAY</option>
+            <option value="TUESDAY">TUESDAY</option>
+            <option value="WEDNESDAY">WEDNESDAY</option>
+            <option value="THURSDAY">THURSDAY</option>
+            <option value="FRIDAY">FRIDAY</option>
+            <option value="SATURDAY">SATURDAY</option>
+            <option value="SUNDAY">SUNDAY</option>
+        </select><br>
+
         <label for="month">Month:</label>
         <select id="month" required>
-            <!-- Options for months 1 to 12 -->
             <script>
                 for (let i = 1; i <= 12; i++) {
                     document.write(`<option value="${i}">${i}</option>`);
@@ -114,16 +122,16 @@
     <script>
         async function makePrediction() {
             const features = {
-                'Victim Age': document.getElementById('victimAge').value,
+                'Victim Age': parseInt(document.getElementById('victimAge').value),
                 'Overall Race': document.getElementById('overallRace').value,
                 'City': document.getElementById('city').value,
-                'Hour': document.getElementById('hour').value,
-                'Day of Week': document.getElementById('dayOfWeek').value,  // Ensure this is still included if needed
-                'Month': document.getElementById('month').value
+                'Hour': parseInt(document.getElementById('hour').value),
+                'Day of Week': document.getElementById('dayOfWeek').value,
+                'Month': parseInt(document.getElementById('month').value)
             };
 
             try {
-                const response = await fetch('https://domestic-violence-prediction-b3b4a22f316e.herokuapp.com/predict', {
+                const response = await fetch('https://your-heroku-app-url/predict', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -138,12 +146,11 @@
                 const result = await response.json();
 
                 if (result.prediction !== undefined) {
-                    document.getElementById('result').innerText = `Prediction: ${result.prediction}`;
+                    document.getElementById('result').innerText = `Prediction: ${result.prediction} (Probability: ${result.probability})`;
                 } else {
                     document.getElementById('result').innerText = 'No prediction returned.';
                 }
             } catch (error) {
-                console.error('Error:', error);
                 document.getElementById('result').innerText = `Error making prediction: ${error.message}`;
             }
         }
